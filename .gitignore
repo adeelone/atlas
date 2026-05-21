@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+
+# Next / build output
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# tests and reports
+coverage/
+playwright-report/
+test-results/
+.nyc_output/
+
+# env and local secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+
+# logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.turbo/
+.cache/
+
+# editors and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# local uploads/storage
+uploads/
+minio-data/
