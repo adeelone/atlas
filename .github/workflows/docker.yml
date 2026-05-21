@@ -12,6 +12,6 @@ jobs:
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
-          context: atlas
+          context: .
           push: false
           tags: atlas:latest
