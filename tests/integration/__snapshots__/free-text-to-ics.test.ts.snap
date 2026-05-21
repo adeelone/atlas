@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`free text to itinerary export > extracts intent and exports a generated trip snapshot 1`] = `
+"BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Atlas//Travel Planner//EN
+BEGIN:VEVENT
+UID:slot-arrive@atlas
+SUMMARY:Arrival buffer and old city walk
+LOCATION:Chiang Mai Old City
+DTSTART:20261103T023000Z
+DTEND:20261103T043000Z
+DESCRIPTION:Keep this light for jet lag and hotel drop-off.
+END:VEVENT
+BEGIN:VEVENT
+UID:slot-khao-soi@atlas
+SUMMARY:Khao soi lunch near Nimman
+LOCATION:Nimman\\, Chiang Mai
+DTSTART:20261103T051500Z
+DTEND:20261103T061500Z
+END:VEVENT
+BEGIN:VEVENT
+UID:slot-temple@atlas
+SUMMARY:Wat Pha Lat forest temple
+LOCATION:Wat Pha Lat
+DTSTART:20261103T080000Z
+DTEND:20261103T100000Z
+END:VEVENT
+END:VCALENDAR"
+`;
