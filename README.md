@@ -10,6 +10,8 @@ Atlas is a travel-planner app experiment that turns a rough trip idea into an ed
 - Step-by-step builder form.
 - Paste box that extracts a locked anchor from simple confirmation text.
 - Demo itinerary with day slots, fallback ideas, budget, packing, map placeholder, and ICS export.
+- Read-only share page and saved-trip dashboard page.
+- Mock Google Calendar payload endpoint for testing event export shape.
 - Provider interfaces for flights, hotels, activities, weather, geocoding, and maps.
 - Planner helpers for city ordering, day allocation, anchor locking, conflicts, budgets, packing, and ICS generation.
 - Docker setup with Postgres, Redis, and MinIO.
@@ -109,6 +111,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Short version: make a branch, keep commi
 - PDF generation, OCR uploads, and encrypted document storage are still TODOs.
 - The map is a placeholder panel.
 - Offline mobile mode is not built yet.
+- Google Calendar export returns a mock payload until OAuth is connected.
 
 ## License
 

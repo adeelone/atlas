@@ -5,9 +5,23 @@ import { useState } from "react";
 
 const stages = ["Intent parsed", "Cities allocated", "Activities discovered", "Schedule drafted"];
 
-export function ChatPlanner() {
+interface ChatPlannerProps {
+  messages: string[];
+  onPlan: (text: string) => void;
+}
+
+export function ChatPlanner({ messages, onPlan }: ChatPlannerProps) {
   const [prompt, setPrompt] = useState("12 days in Japan late October, $4k, love hiking, ramen, quiet shrines, photography, hate crowds");
   const [isPlanning, setIsPlanning] = useState(false);
+  const [activeStage, setActiveStage] = useState(0);
+
+  function runPlan() {
+    setIsPlanning(true);
+    stages.forEach((_, idx) => {
+      window.setTimeout(() => setActiveStage(idx + 1), 180 * (idx + 1));
+    });
+    window.setTimeout(() => onPlan(prompt), 760);
+  }
 
   return (
     <section aria-label="Concierge planner" className="rounded-lg border border-black/10 bg-white/82 p-4 shadow-soft backdrop-blur md:p-5">
@@ -24,7 +38,7 @@ export function ChatPlanner() {
         />
         <button
           className="inline-flex items-center gap-2 rounded-lg bg-atlas-ink px-4 py-3 text-sm font-semibold text-white"
-          onClick={() => setIsPlanning(true)}
+          onClick={runPlan}
           type="button"
         >
           <Send size={16} /> Build my trip
@@ -34,8 +48,13 @@ export function ChatPlanner() {
         {stages.map((stage, index) => (
           <div key={stage} className="flex items-center justify-between rounded-lg bg-atlas-mist p-3 text-sm">
             <span>{stage}</span>
-            <span className={isPlanning || index === 0 ? "text-atlas-moss" : "text-black/40"}>{isPlanning || index === 0 ? "Ready" : "Waiting"}</span>
+            <span className={activeStage > index ? "text-atlas-moss" : "text-black/40"}>{activeStage > index ? "Done" : isPlanning ? "Working" : "Waiting"}</span>
           </div>
+        ))}
+      </div>
+      <div className="mt-5 space-y-2 text-sm">
+        {messages.map((message) => (
+          <p key={message} className="rounded-lg border border-black/10 bg-white p-3">{message}</p>
         ))}
       </div>
     </section>

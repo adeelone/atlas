@@ -3,8 +3,9 @@
 import { Lock, Upload } from "lucide-react";
 import { parseGenericEmail } from "@/lib/parsers/genericEmail";
 import { useMemo, useState } from "react";
+import type { Anchor } from "@/types/trip";
 
-export function AnchorPaster() {
+export function AnchorPaster({ onAnchors }: { onAnchors: (anchors: Anchor[]) => void }) {
   const [text, setText] = useState("Flight: Return flight from Bangkok\nConfirmation: ATLAS6\n2026-11-14T21:10:00+07:00");
   const anchors = useMemo(() => parseGenericEmail(text), [text]);
   return (
@@ -22,6 +23,9 @@ export function AnchorPaster() {
         ))}
         <button className="inline-flex w-fit items-center gap-2 rounded-lg border border-black/10 px-4 py-2 text-sm" type="button">
           <Upload size={16} /> Upload ICS or screenshot
+        </button>
+        <button className="inline-flex w-fit items-center gap-2 rounded-lg bg-atlas-ink px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" disabled={anchors.length === 0} onClick={() => onAnchors(anchors)} type="button">
+          Add locked anchors
         </button>
       </div>
     </section>

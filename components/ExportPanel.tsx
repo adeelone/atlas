@@ -14,14 +14,19 @@ export function ExportPanel({ trip }: { trip: Trip }) {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  const copyShareLink = async () => {
+    const url = `${window.location.origin}/share/${trip.shareSlug}`;
+    await navigator.clipboard?.writeText(url);
+  };
+
   return (
     <section className="rounded-lg border border-black/10 bg-white p-5 shadow-sm">
       <h2 className="text-xl font-semibold">Export</h2>
       <div className="mt-4 grid grid-cols-2 gap-2">
-        <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-atlas-ink px-3 py-2 text-sm text-white" type="button"><CalendarPlus size={16} /> Google</button>
+        <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-atlas-ink px-3 py-2 text-sm text-white" type="button" title="Requires Google OAuth setup"><CalendarPlus size={16} /> Google</button>
         <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-black/10 px-3 py-2 text-sm" onClick={downloadIcs} type="button"><Download size={16} /> ICS</button>
-        <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-black/10 px-3 py-2 text-sm" type="button"><FileText size={16} /> PDF</button>
-        <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-black/10 px-3 py-2 text-sm" type="button"><Share2 size={16} /> Share</button>
+        <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-black/10 px-3 py-2 text-sm" onClick={() => window.print()} type="button"><FileText size={16} /> PDF</button>
+        <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-black/10 px-3 py-2 text-sm" onClick={copyShareLink} type="button"><Share2 size={16} /> Share</button>
       </div>
     </section>
   );
