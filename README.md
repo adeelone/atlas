@@ -1,7 +1,5 @@
 # Atlas
 
-<!-- Badges placeholder: add CI, coverage, release, and deploy badges after the repo is live. -->
-
 Atlas is a travel-planner app experiment that turns a rough trip idea into an editable itinerary with cities, day plans, booked anchors, budgets, packing, and calendar export.
 
 ## Features
@@ -9,7 +7,7 @@ Atlas is a travel-planner app experiment that turns a rough trip idea into an ed
 - Chat-style trip prompt on the home page.
 - Step-by-step builder form.
 - Paste box that extracts a locked anchor from simple confirmation text.
-- Demo itinerary with day slots, fallback ideas, budget, packing, map placeholder, and ICS export.
+- Starter itinerary with day slots, fallback ideas, budget, packing, map pins, and ICS export.
 - Read-only share page and saved-trip dashboard page.
 - Mock Google Calendar payload endpoint for testing event export shape.
 - Provider interfaces for flights, hotels, activities, weather, geocoding, and maps.
@@ -68,6 +66,7 @@ Copy `.env.example` to `.env` and fill in real values only for integrations you 
 | --- | --- |
 | `DATABASE_URL` | Postgres connection for Prisma |
 | `REDIS_URL` | Redis cache and BullMQ jobs |
+| `LOG_LEVEL` | Server/worker log level |
 | `NEXTAUTH_URL` | Local or deployed app URL |
 | `NEXTAUTH_SECRET` | NextAuth signing secret |
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID |
@@ -104,14 +103,18 @@ prompts/      prompt templates for future real LLM calls
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Short version: make a branch, keep commits conventional, run typecheck and tests before opening a PR.
 
+## Deploy
+
+Vercel is the easiest target for the web app. Set the environment variables above, connect a Postgres database and Redis instance, then deploy from GitHub. For self-hosting, use the included Dockerfile and run the worker separately with `npm run worker`.
+
 ## Known Issues
 
-- Real OAuth sign-in and Google Calendar writes are not wired yet.
-- Flight, hotel, and activity providers return mock data.
-- PDF generation, OCR uploads, and encrypted document storage are still TODOs.
-- The map is a placeholder panel.
+- Real OAuth sign-in and Google Calendar writes need Google Cloud credentials.
+- Flight, hotel, and activity providers use local fixture-style data until paid/provider API keys are connected.
+- PDF generation uses browser print for now.
+- OCR uploads and encrypted document storage still need service setup.
 - Offline mobile mode is not built yet.
-- Google Calendar export returns a mock payload until OAuth is connected.
+- Google Calendar export returns a dry-run payload until OAuth is connected.
 
 ## License
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnchorPaster } from "@/components/AnchorPaster";
 import { BudgetPanel } from "@/components/BudgetPanel";
 import { ChatPlanner } from "@/components/ChatPlanner";
@@ -21,11 +21,28 @@ import { createTrip, createTripFromText } from "@/lib/planner/createTrip";
 import type { Anchor, Trip, TripIntent, UploadedDocument } from "@/types/trip";
 
 export function AtlasApp() {
-  const [trip, setTrip] = useState<Trip>(demoTrip);
+  const [trip, setTrip] = useState<Trip>(() => {
+    if (typeof window === "undefined") return demoTrip;
+    const saved = window.localStorage.getItem("atlas.trip");
+    if (!saved) return demoTrip;
+    try {
+      return JSON.parse(saved) as Trip;
+    } catch {
+      return demoTrip;
+    }
+  });
   const [messages, setMessages] = useState<string[]>(["Demo trip loaded. Generate a new one from chat, builder, or anchors."]);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(() => (typeof window === "undefined" ? false : window.localStorage.getItem("atlas.theme") === "dark"));
 
   const nextDay = useMemo(() => trip.days[0], [trip.days]);
+
+  useEffect(() => {
+    window.localStorage.setItem("atlas.trip", JSON.stringify(trip));
+  }, [trip]);
+
+  useEffect(() => {
+    window.localStorage.setItem("atlas.theme", dark ? "dark" : "light");
+  }, [dark]);
 
   function planFromText(text: string) {
     const next = createTripFromText(text, trip.anchors);

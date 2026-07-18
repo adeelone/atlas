@@ -21,7 +21,7 @@ export class AtlasObscuraActivityProvider implements ActivityProvider {
         crowdLevel: "low",
         tags: ["hidden", "outdoor"],
         confidence: 0.7,
-        sourceAttribution: ["Best-effort web source placeholder"],
+        sourceAttribution: ["Local fixture source"],
         location: { lat: 0, lon: 0 }
       }
     ];
