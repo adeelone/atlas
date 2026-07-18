@@ -1,8 +1,22 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    typedRoutes: true
+  typedRoutes: true,
+  turbopack: {
+    root: repoRoot
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com"
+      }
+    ]
   }
 };
 

@@ -11,4 +11,14 @@ describe("paste-in parsers", () => {
   it("returns no anchors when critical fields are missing", () => {
     expect(parseGenericEmail("Confirmation: ABC123")).toEqual([]);
   });
+
+  it("extracts anchors from ICS text", () => {
+    const anchors = parseGenericEmail("BEGIN:VEVENT\nSUMMARY:Cooking class\nDTSTART:20261104T090000Z\nDTEND:20261104T110000Z\nLOCATION:Hoi An\nEND:VEVENT");
+    expect(anchors[0]).toMatchObject({ title: "Cooking class", source: "icsFile", locked: true });
+  });
+
+  it("extracts anchors from booking links", () => {
+    const anchors = parseGenericEmail("https://www.airbnb.com/rooms/12345");
+    expect(anchors[0]).toMatchObject({ title: "Airbnb reservation", source: "airbnb", locked: true });
+  });
 });
